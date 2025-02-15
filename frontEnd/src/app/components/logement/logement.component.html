@@ -1,0 +1,99 @@
+<div class="container">
+    <h2>Gestion des Logements</h2>
+  
+    <!-- Formulaire Ajouter un Logement -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Ajouter un Logement</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="addLogement()">
+          <div class="form-group">
+            <label for="reference">Référence</label>
+            <input type="number" class="form-control" id="reference" [(ngModel)]="newLogement.reference" name="reference" required>
+          </div>
+          <div class="form-group">
+            <label for="adresse">Adresse</label>
+            <input type="text" class="form-control" id="adresse" [(ngModel)]="newLogement.adresse" name="adresse" required>
+          </div>
+          <div class="form-group">
+            <label for="delegation">Ville</label>
+            <input type="text" class="form-control" id="delegation" [(ngModel)]="newLogement.delegation" name="delegation" required>
+          </div>
+          <div class="form-group">
+            <label for="type">Type</label>
+            <input type="text" class="form-control" id="type" [(ngModel)]="newLogement.type" name="type" required>
+          </div>
+          <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Formulaire pour modifier un logement -->
+<h3 *ngIf="selectedLogement">Modifier le Logement</h3>
+<form *ngIf="selectedLogement" (ngSubmit)="updateLogement()">
+  <div class="form-group">
+    <label for="adresse">Adresse</label>
+    <input type="text" id="adresse" [(ngModel)]="selectedLogement.adresse" name="adresse" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="delegation">Ville</label>
+    <input type="text" id="delegation" [(ngModel)]="selectedLogement.delegation" name="delegation" required class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="type">Type</label>
+    <input type="text" id="type" [(ngModel)]="selectedLogement.type" name="type" required class="form-control">
+  </div>
+  <button type="submit" class="btn btn-warning">Mettre à jour</button>
+</form>
+  
+    <!-- Formulaire Supprimer un Logement -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Supprimer un Logement</h3>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="deleteLogement()">
+          <div class="form-group">
+            <label for="deleteReference">Référence</label>
+            <input type="number" class="form-control" id="deleteReference" [(ngModel)]="deleteLogementReference" name="deleteReference" required>
+          </div>
+          <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Liste des Logements -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Liste des Logements</h3>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Référence</th>
+              <th>Adresse</th>
+              <th>Ville</th>
+              <th>Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let logement of logements">
+              <td>{{ logement.reference }}</td>
+              <td>{{ logement.adresse }}</td>
+              <td>{{ logement.delegation }}</td>
+              <td>{{ logement.type }}</td>
+              <td>
+                <button class="btn btn-primary" (click)="selectLogementForUpdate(logement)">Modifier</button>
+                <button class="btn btn-danger" (click)="selectLogementForDelete(logement)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="logements.length === 0">Aucun logement à afficher.</p>
+      </div>
+    </div>
+  </div>
+  
